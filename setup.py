@@ -28,6 +28,6 @@ setup(
     author_email="s.williamswynn.mail@gmail.com",
     py_modules=["sentinel_datetime"],
     packages=find_packages(),
-    install_requires=["dateutil"],
+    install_requires=["python-dateutil"],
     python_requires=">=3.6",
 )

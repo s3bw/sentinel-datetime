@@ -13,42 +13,46 @@ class sentinel:
         microsecond=0,
         default=None,
     ):
-        self.year = year
-        self.month = month
-        self.day = day
+        self._year = year
+        self._month = month
+        self._day = day
 
-        self.hour = hour
-        self.minute = minute
-        self.second = second
-        self.microsecond = microsecond
+        self._hour = hour
+        self._minute = minute
+        self._second = second
+        self._microsecond = microsecond
 
         if default is None:
             default = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+
         self.default = default
+
+    def __getattr__(self, attr):
+        return getattr(self.default, attr)
 
     @property
     def has_year(self):
-        return self.year != 0
+        return self._year != 0
 
     @property
     def has_month(self):
-        return self.month != 0
+        return self._month != 0
 
     @property
     def has_day(self):
-        return self.day != 0
+        return self._day != 0
 
     def todatetime(self):
         res = {
             attr: value
             for attr, value in [
-                ("year", self.year),
-                ("month", self.month),
-                ("day", self.day),
-                ("hour", self.hour),
-                ("minute", self.minute),
-                ("second", self.second),
-                ("microsecond", self.microsecond),
+                ("year", self._year),
+                ("month", self._month),
+                ("day", self._day),
+                ("hour", self._hour),
+                ("minute", self._minute),
+                ("second", self._second),
+                ("microsecond", self._microsecond),
             ]
             if value
         }

@@ -13,6 +13,8 @@ class sentinel:
         microsecond=0,
         default=None,
     ):
+        # We can probably just use the `res` passed
+        # to the _build_naive method instead.
         self._year = year
         self._month = month
         self._day = day

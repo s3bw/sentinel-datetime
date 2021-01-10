@@ -66,9 +66,9 @@ class sentinel:
     def __repr__(self):
         return "%s(%d, %d, %d, %d, %d)" % (
             self.__class__.__qualname__,
-            self.year,
-            self.month,
-            self.day,
-            self.hour,
-            self.minute,
+            self._year,
+            self._month,
+            self._day,
+            self._hour,
+            self._minute,
         )

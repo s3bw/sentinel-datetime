@@ -1,4 +1,6 @@
+import io
 from datetime import datetime
+from unittest.mock import patch
 
 import pytest
 from freezegun import freeze_time
@@ -6,6 +8,21 @@ from freezegun import freeze_time
 from dateutil import parser
 
 from sentinel_datetime import sentinel
+
+
+@pytest.mark.parametrize(
+    "datestr, expected",
+    [
+        ("2020", "sentinel(2020, 0, 0, 0, 0)"),
+        ("Sep-2nd 11:00:00", "sentinel(0, 9, 2, 11, 0)"),
+    ],
+)
+@patch("sys.stdout", new_callable=io.StringIO)
+def test_stdout_output(mock_stdout, datestr, expected):
+    default = sentinel()
+    result = parser.parse(datestr, default=default)
+    print(result)
+    assert mock_stdout.getvalue().strip() == expected
 
 
 @pytest.mark.parametrize(
